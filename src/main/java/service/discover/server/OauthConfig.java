@@ -13,12 +13,14 @@ public class OauthConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.antMatcher("/**")
-                .authorizeRequests()
-                .antMatchers("/login**","/**/common")
-                .permitAll()
-                .anyRequest()
-                .authenticated();
+    	http.antMatcher("/**")
+    	.authorizeRequests()
+    	.antMatchers("/login**","/**/common")
+    	.permitAll()
+    	.antMatchers("/**/admin").hasRole("ADMIN")
+    	.antMatchers("/**/service**").hasRole("USER")
+    	.anyRequest()
+    	.authenticated();
 
     }
 }
